@@ -74,3 +74,16 @@ char TextCursor::currentChar() const {
 }
 
 
+void TextCursor::advance(const unsigned int shift) {
+    for (unsigned int i = 0; i < shift; i++) {
+        if (!isValid())
+            return;
+        if (pos.col >= static_cast<int>(text[pos.row].size())) {
+            pos.col = 0;
+            pos.row++;
+        } else {
+            pos.col++;
+        }
+    }
+}
+
