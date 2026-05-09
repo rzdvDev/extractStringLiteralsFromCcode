@@ -58,5 +58,8 @@ struct TextCursor {
     void skipUntil(const std::string& closeToken);
 };
 
+std::vector<std::string> readFile(const std::string &path, std::vector<AppError> &errors);
+void extractStringLiteralsFromCcode(const std::vector<std::string>& text, std::vector<Span>& litrals);
+void writeResultsToFile(const std::vector<Span>& literals, const std::string& outputPath, std::vector<AppError>& errors);
 
 #endif //EXTRACTSTRINGLITERALSFROMCCODE_PARSER_H
