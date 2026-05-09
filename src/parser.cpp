@@ -91,3 +91,21 @@ void TextCursor::advanceToNextLine() {
     pos.row++;
     pos.col = 0;
 }
+
+bool TextCursor::startsWith(const std::string &sub) const {
+    if (!isValid())
+        return false;
+
+    TextCursor tmp = *this;
+
+    for (int i = 0; i < static_cast<int>(sub.size()); i++) {
+        if (!tmp.isValid() || tmp.pos.row >= static_cast<int>(text.size()))
+            return false;
+
+        if (tmp.currentChar() != sub[i])
+            return false;
+
+        tmp.advance();
+    }
+    return true;
+}
