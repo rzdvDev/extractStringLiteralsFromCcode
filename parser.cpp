@@ -57,3 +57,20 @@ void AppError::print() const {
     cerr << "Ошибка: " << message() << endl;
 }
 
+TextCursor::TextCursor(const vector<string>& text) : text(text), pos({0, 0}) {}
+
+bool TextCursor::isValid() const {
+    if (pos.row < 0 || pos.row >= static_cast<int>(text.size()))
+        return false;
+    return pos.col <= static_cast<int>(text[pos.row].size());
+}
+
+char TextCursor::currentChar() const {
+    if (!isValid())
+        return '\0';
+    if (pos.col == static_cast<int>(text[pos.row].size()))
+        return '\n';
+    return text[pos.row][pos.col];
+}
+
+
