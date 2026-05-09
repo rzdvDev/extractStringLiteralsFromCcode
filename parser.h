@@ -33,4 +33,30 @@ struct AppError {
 private:
     AppError(ErrorType t);
 };
+
+struct TextPos {
+    int row;
+    int col;
+};
+
+struct Span {
+    std::string value;
+    TextPos pos;
+};
+
+struct TextCursor {
+    const std::vector<std::string> &text;
+    TextPos pos;
+
+    TextCursor(const std::vector<std::string> &text);
+
+    bool isValid() const;
+    char currentChar() const;
+    void advance(unsigned int shift = 1);
+    void advanceToNextLine();
+    bool startsWith(const std::string& sub) const;
+    void skipUntil(const std::string& closeToken);
+};
+
+
 #endif //EXTRACTSTRINGLITERALSFROMCCODE_PARSER_H
