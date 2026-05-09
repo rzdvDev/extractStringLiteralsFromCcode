@@ -7,6 +7,7 @@
 
 #include <vector>
 #include <string>
+#include "gtest/gtest.h"
 #include "../include/parser.h"
 
 /**
@@ -18,5 +19,14 @@
  * @return TextCursor, установленный на указанную позицию.
  */
 TextCursor MakeCursor(const std::vector<std::string>& text, int row, int col);
+
+/**
+ * Ассерты для сравнения позиции курсора в тестах.
+ * Использует GoogleTest макросы EXPECT_EQ.
+ */
+inline void AssertTextPos(const TextPos& pos, int expectedRow, int expectedCol) {
+	EXPECT_EQ(expectedRow, pos.row);
+	EXPECT_EQ(expectedCol, pos.col);
+}
 
 #endif //EXTRACTSTRINGLITERALSFROMCCODE_TEST_UTILS_H
