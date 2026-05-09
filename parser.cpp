@@ -34,3 +34,26 @@ AppError AppError::lineTooLong(int lineNumber, int limit) {
     e.lineNumber = lineNumber;
     return e;
 }
+
+string AppError::message() const {
+    switch (type) {
+        case ErrorType::INPUT_FILE_ERROR:
+            return "Неверно указан файл с входными данными. "
+            "Возможно файл не существует или заблокирован: \"" + path + "\"";
+        case ErrorType::OUTPUT_FILE_ERROR:
+            return "Невозможно создать выходной файл. "
+            "Проверьте права на запись в директорию: \"" + path + "\"";
+        case ErrorType::TOO_MANY_LINES:
+            return "Количество строк превышает " + to_string(limit) + ".";
+        case ErrorType::LINE_TOO_LONG:
+            return "Длина строки " + to_string(lineNumber) +
+            " более " + to_string(limit) + " символов.";
+        default:
+            return "Unknown error.";
+    }
+}
+
+void AppError::print() const {
+    cerr << "Ошибка: " << message() << endl;
+}
+
