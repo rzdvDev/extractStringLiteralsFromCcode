@@ -87,3 +87,7 @@ void TextCursor::advance(const unsigned int shift) {
     }
 }
 
+void TextCursor::advanceToNextLine() {
+    pos.row++;
+    pos.col = 0;
+}
