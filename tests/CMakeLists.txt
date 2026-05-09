@@ -13,7 +13,7 @@ add_executable(unit_tests
         test_utils.cpp
         test_utils.h
         currentChar_tests.cpp
-        Advance_tests.cpp
+        advance_tests.cpp
         startsWith_tests.cpp
         skipUntil_tests.cpp
         main_func_tests.cpp)
