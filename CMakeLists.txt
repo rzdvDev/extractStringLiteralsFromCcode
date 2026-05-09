@@ -4,5 +4,5 @@ project(extractStringLiteralsFromCcode)
 set(CMAKE_CXX_STANDARD 20)
 
 add_executable(extractStringLiteralsFromCcode main.cpp
-        parser.h
+        include/parser.h
         parser.cpp)
