@@ -109,3 +109,11 @@ bool TextCursor::startsWith(const std::string &sub) const {
     }
     return true;
 }
+
+
+void TextCursor::skipUntil(const std::string &closeToken) {
+    while (isValid() && !startsWith(closeToken)) {
+        advance();
+    }
+}
+
