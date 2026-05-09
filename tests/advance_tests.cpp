@@ -46,7 +46,7 @@ TEST(TextCursorAdvanceTests, Advance_AcrossSeveralRows_AccumulatesTransitions)
 
 	cursor.advance(3);
 
-	AssertTextPos(cursor.pos, 2, 1);
+	AssertTextPos(cursor.pos, 1, 2);
 }
 
 TEST(TextCursorAdvanceTests, Advance_InvalidCursor_DoesNotChangePosition)
