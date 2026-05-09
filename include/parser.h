@@ -25,7 +25,7 @@ struct AppError {
     static AppError fileNotFound(const std::string &path);
     static AppError outputFailed(const std::string &path);
     static AppError tooManyLines(const std::string &path);
-    static AppError lineTooLong(int lineNumber, const std::string &path);
+    static AppError lineTooLong(int lineNumber, int limit);
 
     std::string message() const;
     void print() const;
