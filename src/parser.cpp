@@ -2,9 +2,6 @@
 
 #include <iostream>
 #include <fstream>
-#include <map>
-#include <windows.h>
-
 
 using namespace std;
 
