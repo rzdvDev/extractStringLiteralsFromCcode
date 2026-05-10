@@ -20,6 +20,18 @@
  */
 TextCursor MakeCursor(const std::vector<std::string>& text, int row, int col);
 
+std::vector<Span> ExtractLiterals(const std::vector<std::string>& text);
+
+void AssertSpan(const Span& span, const std::string& expectedValue, int expectedRow, int expectedCol);
+
+int FindLiteralStart(const std::vector<std::string>& text, size_t line, const std::string& needle);
+
+std::vector<std::string> MakeCompactSearchText();
+
+std::vector<std::string> MakeRealisticSearchText();
+
+std::vector<std::string> MakeLargeRealCodeSearchText();
+
 /**
  * Ассерты для сравнения позиции курсора в тестах.
  * Использует GoogleTest макросы EXPECT_EQ.
