@@ -117,3 +117,62 @@ void TextCursor::skipUntil(const std::string &closeToken) {
     }
 }
 
+void extractStringLiteralsFromCcode(const std::vector<std::string> &text, std::vector<Span> &litrals) {
+    TextCursor cursor(text);
+
+    while (cursor.isValid()) {
+        if (cursor.currentChar() == '\n') {
+            TextPos strBegin = cursor.pos;
+            cursor.advance();
+
+            string value;
+            while (cursor.isValid() && cursor.currentChar() != '\"') {
+                if (cursor.currentChar() == '\\') {
+                    value += '\\';
+                    cursor.advance();
+                    if (cursor.isValid()) {
+                        value += cursor.currentChar();
+                        cursor.advance();
+                    }
+                }
+                else {
+                    value += cursor.currentChar();
+                    cursor.advance();
+                }
+            }
+
+            litrals.push_back({ value, strBegin});
+            cursor.advance();
+        }
+        else if (cursor.startsWith("\'")) {
+            cursor.advance();
+            while (cursor.isValid() && cursor.currentChar() != '\'') {
+                if (cursor.currentChar() == '\\') {
+                    cursor.advance();
+                    if (cursor.isValid()) {
+                        cursor.advance();
+                    }
+                }
+                else {
+                    cursor.advance();
+                }
+            }
+            if (cursor.isValid() && cursor.currentChar() == '\'') {
+                cursor.advance();
+            }
+        }
+        else if (cursor.startsWith("//")) {
+            cursor.advanceToNextLine();
+        }
+        else if (cursor.startsWith("/*")) {
+            cursor.advance(2);
+            cursor.skipUntil("*/");
+            if (cursor.isValid()) {
+                cursor.advance(2);
+            }
+        }
+        else {
+            cursor.advance();
+        }
+    }
+}
