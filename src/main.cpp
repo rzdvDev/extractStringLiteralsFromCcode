@@ -1,14 +1,20 @@
 #include "../include/file_io.h"
 #include "../include/parser.h"
-#include <windows.h>
 #include <iostream>
+
+#ifdef _WIN32
+#define WIN32_LEAN_AND_MEAN
+#include <windows.h>
+#endif
 
 using namespace std;
 
 
 int main(const int argc, char* argv[]) {
+#ifdef _WIN32
     SetConsoleOutputCP(1251);
     SetConsoleCP(1251);
+#endif
 
     if (argc != 3) {
         cerr << "Использование" << argv[0]
