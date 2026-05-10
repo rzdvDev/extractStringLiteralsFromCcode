@@ -17,8 +17,8 @@ int main(const int argc, char* argv[]) {
 #endif
 
     if (argc != 3) {
-        cerr << "Использование" << argv[0]
-        << " <путь к входному файлу> <путь к выходному файлу>" << endl;
+        cerr << "Usage:" << argv[0]
+        << " <path to input file> <path to output file>" << endl;
         return 1;
     }
     const string inputPath = argv[1];

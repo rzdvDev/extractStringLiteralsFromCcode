@@ -35,23 +35,23 @@ AppError AppError::lineTooLong(int lineNumber, int limit) {
 string AppError::message() const {
     switch (type) {
         case ErrorType::INPUT_FILE_ERROR:
-            return "Неверно указан файл с входными данными. "
-            "Возможно файл не существует или заблокирован: \"" + path + "\"";
+            return "Input data file is incorrect. "
+            "File may not exists or be blocked: \"" + path + "\"";
         case ErrorType::OUTPUT_FILE_ERROR:
-            return "Невозможно создать выходной файл. "
-            "Проверьте права на запись в директорию: \"" + path + "\"";
+            return "Unable to create or open output file. "
+            "Check the write permissions for directory: \"" + path + "\"";
         case ErrorType::TOO_MANY_LINES:
-            return "Количество строк превышает " + to_string(limit) + ".";
+            return "Number of linex exceeds " + to_string(limit) + ".";
         case ErrorType::LINE_TOO_LONG:
-            return "Длина строки " + to_string(lineNumber) +
-            " более " + to_string(limit) + " символов.";
+            return "Length string " + to_string(lineNumber) +
+            " more " + to_string(limit) + " symbols.";
         default:
             return "Unknown error.";
     }
 }
 
 void AppError::print() const {
-    cerr << "Ошибка: " << message() << endl;
+    cerr << "Error: " << message() << endl;
 }
 
 TextCursor::TextCursor(const vector<string>& text) : text(text), pos({0, 0}) {}
