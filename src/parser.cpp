@@ -118,7 +118,7 @@ void extractStringLiteralsFromCcode(const std::vector<std::string> &text, std::v
     TextCursor cursor(text);
 
     while (cursor.isValid()) {
-        if (cursor.currentChar() == '\n') {
+        if (cursor.currentChar() == '"') {
             TextPos strBegin = cursor.pos;
             cursor.advance();
 
