@@ -62,7 +62,7 @@ vector<string> MakeRealisticSearchText()
     R"(    report("error: invalid code");)",
     R"(placeholder)",
     R"(    const char* path = "C:\\temp\\file.txt";)",
-    R"(    const char* weird = "a\\\"b";)",
+    "    const char* weird = \"a\\\"b\";",
   };
 }
 
@@ -76,7 +76,7 @@ vector<string> MakeLargeRealCodeSearchText()
   text[18] = R"(    log("warning");)";
   text[24] = R"(    const char* pattern = "[A-Z]+";)";
   text[25] = R"(    const char* path = "C:\\logs\\app.log";)";
-  text[26] = R"(    const char* json = "{\"ok\":true}";)";
+  text[26] = "    const char* json = \"{\\\"ok\\\":true}\";";
   text[30] = R"(    puts("usage: tool <input>");)";
   return text;
 }
