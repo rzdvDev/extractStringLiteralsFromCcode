@@ -1,0 +1,37 @@
+# Doxygen configuration for extractStringLiteralsFromCcode
+
+PROJECT_NAME           = "extractStringLiteralsFromCcode"
+PROJECT_BRIEF          = "Utility for extracting string literals from C code"
+OUTPUT_DIRECTORY       = @CMAKE_CURRENT_BINARY_DIR@/docs
+CREATE_SUBDIRS         = YES
+
+INPUT                  = @CMAKE_CURRENT_SOURCE_DIR@/include \
+                         @CMAKE_CURRENT_SOURCE_DIR@/src \
+                         @CMAKE_CURRENT_SOURCE_DIR@/README.md
+FILE_PATTERNS          = *.h \
+                         *.hpp \
+                         *.hh \
+                         *.c \
+                         *.cc \
+                         *.cpp \
+                         *.md
+RECURSIVE              = YES
+MARKDOWN_SUPPORT       = YES
+USE_MDFILE_AS_MAINPAGE = @CMAKE_CURRENT_SOURCE_DIR@/README.md
+
+EXTRACT_ALL            = YES
+EXTRACT_PRIVATE        = NO
+EXTRACT_STATIC         = NO
+QUIET                  = NO
+WARN_IF_UNDOCUMENTED   = YES
+WARN_IF_DOC_ERROR      = YES
+GENERATE_HTML          = YES
+GENERATE_LATEX         = NO
+INPUT_ENCODING         = UTF-8
+
+HAVE_DOT               = YES
+DOT_IMAGE_FORMAT        = svg
+
+
+
+
