@@ -24,5 +24,8 @@ target_link_libraries(unit_tests
         core
 )
 
+if(MINGW)
+endif()
+
 include(GoogleTest)
 gtest_discover_tests(unit_tests)

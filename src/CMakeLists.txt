@@ -5,11 +5,15 @@ add_library(
         ../include/file_io.h
 )
 
+target_include_directories(core PUBLIC ../include)
+
 add_executable(app
         main.cpp
-        parser.cpp
-        file_io.cpp
-        ../include/file_io.h
 )
 
-target_include_directories(core PUBLIC ../include)
+set_target_properties(app PROPERTIES ENABLE_EXPORTS OFF)
+
+target_link_libraries(app PRIVATE core)
+
+if(MINGW)
+endif()

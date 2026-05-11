@@ -2,6 +2,23 @@ cmake_minimum_required(VERSION 4.2)
 project(extractStringLiteralsFromCcode)
 
 set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS OFF)
+set(CMAKE_EXECUTABLE_ENABLE_EXPORTS OFF)
+
+if(MINGW)
+	get_filename_component(MINGW_RUNTIME_DLL_DIR "${CMAKE_CXX_COMPILER}" DIRECTORY)
+	set(MINGW_RUNTIME_DLLS
+			"${MINGW_RUNTIME_DLL_DIR}/libgcc_s_seh-1.dll"
+			"${MINGW_RUNTIME_DLL_DIR}/libstdc++-6.dll"
+			"${MINGW_RUNTIME_DLL_DIR}/libwinpthread-1.dll")
+	foreach(dll_path IN LISTS MINGW_RUNTIME_DLLS)
+		if(EXISTS "${dll_path}")
+			file(COPY "${dll_path}" DESTINATION "${CMAKE_CURRENT_BINARY_DIR}/src")
+			file(COPY "${dll_path}" DESTINATION "${CMAKE_CURRENT_BINARY_DIR}/tests")
+		endif()
+	endforeach()
+endif()
+
 
 add_subdirectory(src)
 add_subdirectory(tests)
