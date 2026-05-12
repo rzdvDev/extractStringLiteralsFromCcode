@@ -114,7 +114,7 @@ void TextCursor::skipUntil(const std::string &closeToken) {
     }
 }
 
-void extractStringLiteralsFromCcode(const std::vector<std::string> &text, std::vector<Span> &litrals) {
+void extractStringLiteralsFromCcode(const std::vector<std::string> &text, std::vector<Span> &literals) {
     TextCursor cursor(text);
 
     while (cursor.isValid()) {

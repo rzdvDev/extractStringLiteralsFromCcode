@@ -139,9 +139,9 @@ struct TextCursor {
  * Извлекает строковые литералы из C-кода.
  *
  * @param text Исходный текст программы.
- * @param litrals Контейнер для найденных литералов и их позиций.
+ * @param literals Контейнер для найденных литералов и их позиций.
  */
-void extractStringLiteralsFromCcode(const std::vector<std::string>& text, std::vector<Span>& litrals);
+void extractStringLiteralsFromCcode(const std::vector<std::string>& text, std::vector<Span>& literals);
 
 
 #endif //EXTRACTSTRINGLITERALSFROMCCODE_PARSER_H
