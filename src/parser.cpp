@@ -138,7 +138,7 @@ void extractStringLiteralsFromCcode(const std::vector<std::string> &text, std::v
                 }
             }
 
-            litrals.push_back({ value, strBegin});
+            literals.push_back({ value, strBegin});
             cursor.advance();
         }
         else if (cursor.startsWith("\'")) {
