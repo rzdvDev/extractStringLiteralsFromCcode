@@ -21,6 +21,7 @@ endif()
 
 
 add_subdirectory(src)
+enable_testing()
 add_subdirectory(tests)
 
 option(BUILD_DOCS "Generate API documentation with Doxygen" ON)

@@ -7,8 +7,6 @@ FetchContent_Declare(
 
 FetchContent_MakeAvailable(googletest)
 
-enable_testing()
-
 add_executable(unit_tests
         test_utils.cpp
         test_utils.h
@@ -19,8 +17,8 @@ add_executable(unit_tests
         main_func_tests.cpp)
 
 target_link_libraries(unit_tests
-        gtest
-        gtest_main
+        GTest::gtest
+        GTest::gtest_main
         core
 )
 
