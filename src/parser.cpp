@@ -5,7 +5,9 @@
 
 using namespace std;
 
-AppError::AppError(ErrorType t) : type(t) {}
+AppError::AppError(ErrorType t) : type(t) {
+    // Конструктор объекта ошибки.
+}
 
 AppError AppError::fileNotFound(const std::string &path) {
     // Выставляем тип ошибки связанный с входным файлом
@@ -56,11 +58,16 @@ string AppError::message() const {
 }
 
 void AppError::print() const {
-    // Вывод в cerr отформатированную ошибку
+    // Вывод отформатированного сообщения об ошибке.
+    // Формирование текста выполняется функцией message().
+    // Перед сообщением выводится префикс Error.
+    // После сообщения добавляется перевод строки.
     cerr << "Error: " << message() << endl;
 }
 
-TextCursor::TextCursor(const vector<string>& text) : text(text), pos({0, 0}) {}
+TextCursor::TextCursor(const vector<string>& text) : text(text), pos({0, 0}) {
+    // Инициализация курсора на начале текста
+}
 
 bool TextCursor::isValid() const {
     // Условия валидности:
