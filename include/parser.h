@@ -68,7 +68,7 @@ struct AppError {
     void print() const;
 
 private:
-    AppError(ErrorType t);
+    explicit AppError(ErrorType t);
 };
 
 struct TextPos {
@@ -90,7 +90,7 @@ struct TextCursor {
      *
      * @param text Исходный текст в виде массива строк.
      */
-    TextCursor(const std::vector<std::string> &text);
+    explicit TextCursor(const std::vector<std::string> &text);
 
     /**
      * Проверяет, находится ли курсор в допустимой позиции.
