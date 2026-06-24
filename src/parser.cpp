@@ -154,59 +154,83 @@ void TextCursor::skipUntil(const std::string &closeToken) {
     }
 }
 
-void extractStringLiteralsFromCcode(const std::vector<std::string> &text, std::vector<Span> &literals) {
+void processStringLiteral(TextCursor& cursor, std::vector<Span>& literals) {
+    TextPos strBegin = cursor.pos;
+    cursor.advance();
+
+    std::string value;
+
+    while (cursor.isValid() && cursor.currentChar() != '"') {
+        if (cursor.currentChar() == '\\') {
+            value += '\\';
+            cursor.advance();
+
+            if (cursor.isValid()) {
+                value += cursor.currentChar();
+                cursor.advance();
+            }
+        }
+        else {
+            value += cursor.currentChar();
+            cursor.advance();
+        }
+    }
+
+    literals.push_back({value, strBegin});
+
+    if (cursor.isValid()) {
+        cursor.advance();
+    }
+}
+
+void skipCharLiteral(TextCursor& cursor) {
+    cursor.advance();
+
+    while (cursor.isValid() && cursor.currentChar() != '\'') {
+        if (cursor.currentChar() == '\\') {
+            cursor.advance();
+
+            if (cursor.isValid()) {
+                cursor.advance();
+            }
+        }
+        else {
+            cursor.advance();
+        }
+    }
+
+    if (cursor.isValid()) {
+        cursor.advance();
+    }
+}
+
+void skipBlockComment(TextCursor& cursor) {
+    cursor.advance(2);
+    cursor.skipUntil("*/");
+
+    if (cursor.isValid()) {
+        cursor.advance(2);
+    }
+}
+
+void extractStringLiteralsFromCcode(
+    const std::vector<std::string>& text,
+    std::vector<Span>& literals)
+{
     TextCursor cursor(text);
 
     while (cursor.isValid()) {
         if (cursor.currentChar() == '"') {
-            TextPos strBegin = cursor.pos;
-            cursor.advance();
-
-            string value;
-            while (cursor.isValid() && cursor.currentChar() != '\"') {
-                if (cursor.currentChar() == '\\') {
-                    value += '\\';
-                    cursor.advance();
-                    if (cursor.isValid()) {
-                        value += cursor.currentChar();
-                        cursor.advance();
-                    }
-                }
-                else {
-                    value += cursor.currentChar();
-                    cursor.advance();
-                }
-            }
-
-            literals.push_back({ value, strBegin});
-            cursor.advance();
+            processStringLiteral(cursor, literals);
         }
-        else if (cursor.startsWith("\'")) {
-            cursor.advance();
-            while (cursor.isValid() && cursor.currentChar() != '\'') {
-                if (cursor.currentChar() == '\\') {
-                    cursor.advance();
-                    if (cursor.isValid()) {
-                        cursor.advance();
-                    }
-                }
-                else {
-                    cursor.advance();
-                }
-            }
-            if (cursor.isValid() && cursor.currentChar() == '\'') {
-                cursor.advance();
-            }
+        else if (cursor.startsWith("'")) {
+            skipCharLiteral(cursor);
         }
         else if (cursor.startsWith("//")) {
             cursor.advanceToNextLine();
         }
         else if (cursor.startsWith("/*")) {
-            cursor.advance(2);
-            cursor.skipUntil("*/");
-            if (cursor.isValid()) {
-                cursor.advance(2);
-            }
+            skipBlockComment(cursor);
         }
         else {
             cursor.advance();
