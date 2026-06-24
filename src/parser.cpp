@@ -38,20 +38,30 @@ AppError AppError::lineTooLong(int lineNumber, int limit) {
     return e;
 }
 
-string AppError::message() const {
-    // Выводим относительно типа ошибки - текст ошибки для пользователя
+std::string AppError::message() const {
+    // Формируем сообщение в зависимости от типа ошибки
     switch (type) {
+
+        // Ошибка входного файла (не найден / недоступен / повреждён)
         case ErrorType::INPUT_FILE_ERROR:
             return "Input data file is incorrect. "
-            "File may not exists or be blocked: \"" + path + "\"";
+                   "File may not exists or be blocked: \"" + path + "\"";
+
+            // Ошибка выходного файла (нет прав / нельзя создать)
         case ErrorType::OUTPUT_FILE_ERROR:
             return "Unable to create or open output file. "
-            "Check the write permissions for directory: \"" + path + "\"";
+                   "Check the write permissions for directory: \"" + path + "\"";
+
+            // Превышено допустимое количество строк во входном файле
         case ErrorType::TOO_MANY_LINES:
-            return "Number of linex exceeds " + to_string(limit) + ".";
+            return "Number of lines exceeds limit (" + to_string(limit) + ").";
+
+            // Строка превышает допустимую длину
         case ErrorType::LINE_TOO_LONG:
-            return "Length string " + to_string(lineNumber) +
-            " more " + to_string(limit) + " symbols.";
+            return "Length of line " + to_string(lineNumber) +
+                   " exceeds limit of " + to_string(limit) + " symbols.";
+
+            // Неизвестный тип ошибки (fallback)
         default:
             return "Unknown error.";
     }
