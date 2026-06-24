@@ -136,12 +136,46 @@ struct TextCursor {
 
 
 /**
- * Извлекает строковые литералы из C-кода.
+ * @brief Обрабатывает строковый литерал C/C++.
  *
- * @param text Исходный текст программы.
- * @param literals Контейнер для найденных литералов и их позиций.
+ * Извлекает строковый литерал, начиная с текущей позиции курсора.
+ * Поддерживает escape-последовательности (например, \n, \", \\).
+ *
+ * @param cursor Курсор по исходному тексту.
+ * @param literals Вектор, в который сохраняются найденные строковые литералы.
  */
-void extractStringLiteralsFromCcode(const std::vector<std::string>& text, std::vector<Span>& literals);
+void processStringLiteral(TextCursor& cursor, std::vector<Span>& literals);
+
+/**
+ * @brief Пропускает символьный литерал C/C++.
+ *
+ * Обрабатывает символы вида 'a', '\n', '\0' и корректно пропускает escape-последовательности.
+ *
+ * @param cursor Курсор по исходному тексту.
+ */
+void skipCharLiteral(TextCursor& cursor);
+
+/**
+ * @brief Пропускает многострочный комментарий.
+ *
+ * Пропускает блок комментария вида / * ... * / до закрывающего маркера.
+ *
+ * @param cursor Курсор по исходному тексту.
+ */
+void skipBlockComment(TextCursor& cursor);
+
+/**
+ * @brief Извлекает строковые литералы из C/C++ кода.
+ *
+ * Проходит по исходному тексту и извлекает строковые литералы,
+ * игнорируя символьные литералы и комментарии (// и / * * /).
+ *
+ * @param text Входной исходный текст построчно.
+ * @param literals Выходной список найденных строковых литералов с их позициями.
+ */
+void extractStringLiteralsFromCcode(
+    const std::vector<std::string>& text,
+    std::vector<Span>& literals);
 
 
 #endif //EXTRACTSTRINGLITERALSFROMCCODE_PARSER_H
