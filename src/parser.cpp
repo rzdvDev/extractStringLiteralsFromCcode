@@ -155,41 +155,56 @@ void TextCursor::skipUntil(const std::string &closeToken) {
 }
 
 void processStringLiteral(TextCursor& cursor, std::vector<Span>& literals) {
+    // Запоминаем позицию начала строки
     TextPos strBegin = cursor.pos;
+
+    // Пропускаем открывающую кавычку "
     cursor.advance();
 
     std::string value;
 
+    // Читаем строку до закрывающей кавычки
     while (cursor.isValid() && cursor.currentChar() != '"') {
+
+        // Обработка escape-последовательностей (\n, \", \\ и т.д.)
         if (cursor.currentChar() == '\\') {
             value += '\\';
             cursor.advance();
 
+            // Добавляем экранированный символ, если он существует
             if (cursor.isValid()) {
                 value += cursor.currentChar();
                 cursor.advance();
             }
         }
         else {
+            // Обычный символ строки
             value += cursor.currentChar();
             cursor.advance();
         }
     }
 
-    literals.push_back({value, strBegin});
+    // Сохраняем найденный строковый литерал и его позицию
+    literals.push_back({ value, strBegin });
 
+    // Пропускаем закрывающую кавычку, если она есть
     if (cursor.isValid()) {
         cursor.advance();
     }
 }
 
 void skipCharLiteral(TextCursor& cursor) {
+    // Пропускаем открывающую '
     cursor.advance();
 
+    // Идем до закрывающей '
     while (cursor.isValid() && cursor.currentChar() != '\'') {
+
+        // Обработка экранированных символов внутри символа
         if (cursor.currentChar() == '\\') {
             cursor.advance();
 
+            // пропускаем экранированный символ
             if (cursor.isValid()) {
                 cursor.advance();
             }
@@ -199,15 +214,20 @@ void skipCharLiteral(TextCursor& cursor) {
         }
     }
 
+    // Пропускаем закрывающую '
     if (cursor.isValid()) {
         cursor.advance();
     }
 }
 
 void skipBlockComment(TextCursor& cursor) {
+    // Пропускаем "/*"
     cursor.advance(2);
+
+    // Переходим к закрывающему маркеру */
     cursor.skipUntil("*/");
 
+    // Если нашли конец комментария — пропускаем его
     if (cursor.isValid()) {
         cursor.advance(2);
     }
@@ -220,18 +240,28 @@ void extractStringLiteralsFromCcode(
     TextCursor cursor(text);
 
     while (cursor.isValid()) {
+
+        // Строковый литерал
         if (cursor.currentChar() == '"') {
             processStringLiteral(cursor, literals);
         }
+
+        // Символьный литерал
         else if (cursor.startsWith("'")) {
             skipCharLiteral(cursor);
         }
+
+        // Однострочный комментарий
         else if (cursor.startsWith("//")) {
             cursor.advanceToNextLine();
         }
+
+        // Многострочный комментарий
         else if (cursor.startsWith("/*")) {
             skipBlockComment(cursor);
         }
+
+        // Обычный символ — просто двигаем курсор дальше
         else {
             cursor.advance();
         }
