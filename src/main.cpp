@@ -10,7 +10,7 @@
 using namespace std;
 
 
-int main(int argc, char* argv[]) {
+int main(int argc, const char* argv[]) {
 
 #ifdef _WIN32
     // Установка кодировки консоли для корректного отображения текста (Windows)
