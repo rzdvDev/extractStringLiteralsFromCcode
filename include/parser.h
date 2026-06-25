@@ -20,7 +20,7 @@ struct AppError {
 
     std::string path;
     int lineNumber = 0;
-    int limit = 0;
+    int limit = 1000;
 
     /**
      * Создаёт ошибку с заданным типом.
