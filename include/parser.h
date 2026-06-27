@@ -150,6 +150,19 @@ public:
      * @param closeToken Токен, до которого выполняется пропуск.
      */
     void skipUntil(const std::string& closeToken);
+
+private:
+
+    bool m_isValid = true;
+
+    /**
+     * @brief Обновляет состояние флага m_isValid в зависимости от текущей позиции курсора.
+     *
+     * Если позиция выходит за пределы текста, флаг устанавливается в false.
+     * В противном случае флаг устанавливается в true.
+     */
+    void updateValidity();
+
 };
 
 
