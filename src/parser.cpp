@@ -81,7 +81,8 @@ void AppError::print() const {
 }
 
 TextCursor::TextCursor(const vector<string>& text) : text(text), pos({0, 0}) {
-    // Инициализация курсора на начале текста
+    // Выполняем проверку один раз при создании объекта
+    updateValidity();
 }
 
 bool TextCursor::isValid() const {
