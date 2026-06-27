@@ -114,7 +114,7 @@ void TextCursor::advance(const unsigned int shift) {
     // Цикл выполняется shift раз, каждая итерация равна одному шагу курсора внутри текста.
     for (unsigned int i = 0; i < shift; i++) {
         // Проверка корректности текущей позиции.
-        if (!isValid())
+        if (!m_isValid)
             return;
 
         // Проверка достижения конца строки, переходим на следующую, если текущая кончилась.
@@ -126,6 +126,8 @@ void TextCursor::advance(const unsigned int shift) {
             // Переход к следующему символу в текущей строке.
             pos.col++;
         }
+
+        updateValidity();
     }
 }
 
