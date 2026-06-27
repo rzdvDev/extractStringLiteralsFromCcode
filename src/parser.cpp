@@ -145,10 +145,6 @@ void TextCursor::advanceToNextLine() {
 }
 
 bool TextCursor::startsWith(const std::string &sub) const {
-    // Проверка корректности текущей позиции курсора в тексте.
-    if (!isValid())
-        return false;
-
     // Временная копия курсора для проверки последовательности символов.
     TextCursor tmp = *this;
 
