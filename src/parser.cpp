@@ -132,9 +132,16 @@ void TextCursor::advance(const unsigned int shift) {
 }
 
 void TextCursor::advanceToNextLine() {
+    // Проверка текущего состояния флага корректности позиции
+    if (!m_isValid)
+        return;
+
     // Переход к началу следующей строки.
     pos.row++;
     pos.col = 0;
+
+    // Обновляем состояние валидности после изменения позиции
+    updateValidity();
 }
 
 bool TextCursor::startsWith(const std::string &sub) const {
