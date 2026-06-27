@@ -94,6 +94,13 @@ TEST(ExtractStringLiteralsFromCcodeTests, Basic_AdjacentLiterals_AreReportedSepa
 	AssertSpan(literals[1], "b", 0, 3);
 }
 
+TEST(AppErrorTest, Message_UnknownErrorType_ReturnsFallbackMessage) {
+	AppError error = AppError::unknownError();
+
+	std::string expectedMessage = "Unknown error.";
+	ASSERT_EQ(expectedMessage, error.message());
+}
+
 TEST(ExtractStringLiteralsFromCcodeTests, Content_DuplicateLiteralValues_AreNotCollapsedByExtractor)
 {
 	const vector<string> text = { R"(puts("dup"); puts("dup");)" };
