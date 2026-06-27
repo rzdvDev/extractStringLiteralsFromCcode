@@ -39,6 +39,19 @@ TEST(TextCursorAdvanceTests, Advance_FromEndOfLine_MovesToNextRowStart)
 	AssertTextPos(cursor.pos, 1, 0);
 }
 
+TEST(TextCursorTest, AdvanceToNextLine_OnInvalidCursor_ReturnsImmediately) {
+	const std::vector<std::string> text = { "line1" };
+
+	TextCursor cursor(text, 99, 0);
+
+	ASSERT_FALSE(cursor.isValid());
+
+	cursor.advanceToNextLine();
+
+	ASSERT_EQ(99, cursor.pos.row);
+	ASSERT_EQ(0, cursor.pos.col);
+}
+
 TEST(TextCursorAdvanceTests, Advance_AcrossSeveralRows_AccumulatesTransitions)
 {
 	const vector<string> text = { "ab", "cd", "e" };
