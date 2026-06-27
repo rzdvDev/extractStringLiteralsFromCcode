@@ -174,6 +174,14 @@ void TextCursor::skipUntil(const std::string &closeToken) {
     }
 }
 
+void TextCursor::updateValidity() {
+    if (pos.row < 0 || pos.row >= static_cast<int>(text.size())) {
+        m_isValid = false;
+    } else {
+        m_isValid = (pos.col <= static_cast<int>(text[pos.row].size()));
+    }
+}
+
 void processStringLiteral(TextCursor& cursor, std::vector<Span>& literals) {
     // Запоминаем позицию начала строки
     TextPos strBegin = cursor.pos;
