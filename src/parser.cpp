@@ -93,16 +93,8 @@ TextCursor::TextCursor(const vector<string>& text, int startRow, int startCol)
 
 
 bool TextCursor::isValid() const {
-    // Условия валидности:
-    // Номер строки не может быть отрицательным
-    // и не должен выходить за пределы массива строк.
-    if (pos.row < 0 || pos.row >= static_cast<int>(text.size()))
-        return false;
-
-    // Проверка корректности номера столбца.
-    // Допускается позиция, равная длине строки,
-    // так как она соответствует концу строки.
-    return pos.col <= static_cast<int>(text[pos.row].size());
+    // Возвращаем текущее состояние валидности позиции курсора
+    return m_isValid;
 }
 
 char TextCursor::currentChar() const {
