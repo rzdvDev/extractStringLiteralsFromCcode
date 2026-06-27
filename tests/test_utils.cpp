@@ -8,10 +8,8 @@ using std::string;
 using std::vector;
 
 TextCursor MakeCursor(const std::vector<std::string>& text, int row, int col) {
-    TextCursor cursor(text);
-    cursor.pos.row = row;
-    cursor.pos.col = col;
-    return cursor;
+  // Используем новый конструктор, который самостоятельно обновляет состояние флага m_isValid.
+  return {text, row, col};
 }
 
 vector<Span> ExtractLiterals(const vector<string>& text)
