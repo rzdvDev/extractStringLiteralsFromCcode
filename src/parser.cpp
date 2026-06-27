@@ -38,6 +38,11 @@ AppError AppError::lineTooLong(int lineNumber, int limit) {
     return e;
 }
 
+AppError AppError::unknownError() {
+    // Возвращаем "Unknown error" с типом ошибки, который не определён в перечислении ErrorType.
+    return AppError(static_cast<ErrorType>(999));
+}
+
 std::string AppError::message() const {
     // Формируем сообщение в зависимости от типа ошибки
     switch (type) {
