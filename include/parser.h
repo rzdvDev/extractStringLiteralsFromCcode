@@ -56,6 +56,13 @@ struct AppError {
     static AppError lineTooLong(int lineNumber, int limit);
 
     /**
+     * Создает ошибку, если не один из типов ошибок не подходит.
+     *
+     * @return Объект ошибки с неизвестным типом.
+     */
+    static AppError unknownError();
+
+    /**
      * Возвращает человекочитаемое сообщение об ошибке.
      *
      * @return Текст сообщения об ошибке.
