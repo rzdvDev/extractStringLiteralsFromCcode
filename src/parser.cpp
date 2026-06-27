@@ -85,6 +85,13 @@ TextCursor::TextCursor(const vector<string>& text) : text(text), pos({0, 0}) {
     updateValidity();
 }
 
+TextCursor::TextCursor(const vector<string>& text, int startRow, int startCol)
+    : text(text), pos({startRow, startCol}) {
+    // Сразу же при создании проверяем, валидны ли переданные координаты
+    updateValidity();
+}
+
+
 bool TextCursor::isValid() const {
     // Условия валидности:
     // Номер строки не может быть отрицательным
