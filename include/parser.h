@@ -88,9 +88,20 @@ struct Span {
     TextPos pos{};
 };
 
-struct TextCursor {
+
+
+class TextCursor {
+
+public:
+    // Конструктор, который принимает текст и начальную позицию курсора.
+    TextCursor(const std::vector<std::string>& text, int startRow, int startCol);
+
+    // Вектор строк, представляющий исходный текст, по которому курсор будет перемещаться.
     const std::vector<std::string> &text;
+
+    // Текущая позиция курсора в тексте, представленная структурой TextPos.
     TextPos pos;
+
 
     /**
      * Создаёт курсор для обхода текста.
